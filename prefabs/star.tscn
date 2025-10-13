@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://c75xdy8e2xrhq"]
+
+[ext_resource type="Texture2D" uid="uid://btlgf7xhu6g1i" path="res://sprites/star.svg" id="1_e2x7v"]
+[ext_resource type="Script" uid="uid://bv8w8iq7eio14" path="res://scripts/FlyBy.cs" id="2_c2gop"]
+
+[node name="Star" type="Sprite3D"]
+texture = ExtResource("1_e2x7v")
+script = ExtResource("2_c2gop")
