@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://by7b2tidvrpi7"]
+
+[ext_resource type="Texture2D" uid="uid://dp7hlk3gj7b81" path="res://icon.svg" id="1_a202f"]
+
+[sub_resource type="Environment" id="Environment_a202f"]
+background_mode = 1
+background_color = Color(0.056291588, 0.056291603, 0.056291595, 1)
+
+[node name="Node3D" type="Node3D"]
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 10)
+environment = SubResource("Environment_a202f")
+
+[node name="Sprite3D" type="Sprite3D" parent="."]
+texture = ExtResource("1_a202f")
