@@ -19,13 +19,19 @@ public partial class Input : RayCast3D
 			//camera3D = GetNode<Camera3D>("Camera3D");
 			from = camera3D.ProjectRayOrigin(eventMouseButton.Position);
 			to = from + camera3D.ProjectRayNormal(eventMouseButton.Position) * RayLength;
-			
+
 			var spaceState = GetWorld3D().DirectSpaceState;
 			var query = PhysicsRayQueryParameters3D.Create(from, to);
 			query.CollideWithAreas = true;
 
 			var result = spaceState.IntersectRay(query);
 			GD.Print("Hit at point: ", result);
+
+			if (result.Count == 0) return;
+
+			var collider = result["collider"];
+			Clickable obj = (Clickable)collider.As<StaticBody3D>().GetParent();
+			obj.OnHit();
 		}
 	}
 }
