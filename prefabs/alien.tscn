@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://bisx1l4lq60jk"]
+
+[ext_resource type="Texture2D" uid="uid://df6suewxaj50u" path="res://sprites/alien.png" id="1_fahsj"]
+[ext_resource type="Script" uid="uid://bv8w8iq7eio14" path="res://scripts/FlyBy.cs" id="2_88ukn"]
+
+[node name="Alien" type="Sprite3D"]
+billboard = 1
+texture = ExtResource("1_fahsj")
+script = ExtResource("2_88ukn")

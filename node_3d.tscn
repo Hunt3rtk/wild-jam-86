@@ -1,8 +1,10 @@
-[gd_scene load_steps=6 format=3 uid="uid://by7b2tidvrpi7"]
+[gd_scene load_steps=8 format=3 uid="uid://by7b2tidvrpi7"]
 
 [ext_resource type="Texture2D" uid="uid://btlgf7xhu6g1i" path="res://sprites/star.svg" id="1_a202f"]
+[ext_resource type="Script" uid="uid://cvheqoed8lf7k" path="res://scripts/Input.cs" id="1_i5arm"]
 [ext_resource type="Script" uid="uid://bv8w8iq7eio14" path="res://scripts/FlyBy.cs" id="2_a0tk4"]
 [ext_resource type="Script" uid="uid://dgr44eu6mbgp1" path="res://scripts/Spawn.cs" id="3_r3fl7"]
+[ext_resource type="PackedScene" uid="uid://bisx1l4lq60jk" path="res://prefabs/alien.tscn" id="4_jka67"]
 [ext_resource type="PackedScene" uid="uid://c75xdy8e2xrhq" path="res://prefabs/star.tscn" id="4_r3fl7"]
 
 [sub_resource type="Environment" id="Environment_a202f"]
@@ -15,6 +17,12 @@ background_color = Color(0.056291588, 0.056291603, 0.056291595, 1)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 10)
 environment = SubResource("Environment_a202f")
 
+[node name="RayCast3D" type="RayCast3D" parent="Camera3D" node_paths=PackedStringArray("camera3D")]
+target_position = Vector3(0, 0, -1000)
+debug_shape_custom_color = Color(0, 1, 0, 1)
+script = ExtResource("1_i5arm")
+camera3D = NodePath("..")
+
 [node name="Star" type="Sprite3D" parent="."]
 billboard = 1
 texture = ExtResource("1_a202f")
@@ -22,4 +30,6 @@ script = ExtResource("2_a0tk4")
 
 [node name="Spawn" type="Node" parent="."]
 script = ExtResource("3_r3fl7")
-spawnScene = Array[PackedScene]([ExtResource("4_r3fl7"), ExtResource("4_r3fl7"), ExtResource("4_r3fl7"), ExtResource("4_r3fl7")])
+spawnScene = Array[PackedScene]([ExtResource("4_jka67"), ExtResource("4_r3fl7")])
+
+[node name="InputNode" type="Node3D" parent="."]
