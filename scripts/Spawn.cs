@@ -4,7 +4,7 @@ using System;
 public partial class Spawn : Node
 {
 	[Export]
-	PackedScene[] spawnScene;
+	internal PackedScene[] spawnScene;
 
 	[Export]
 	int minSpawn = 1;
@@ -12,9 +12,10 @@ public partial class Spawn : Node
 	[Export]
 	int maxSpawn = 5;
 
-	double timeout = 0;
+	internal double timeout = 0;
 
-	double timeoutInterval = 2;
+	[Export]
+	internal double timeoutInterval = 2;
 
 	[Export]
 	public int round = 0;
@@ -49,7 +50,7 @@ public partial class Spawn : Node
 		}
 	}
 	
-	void SetRound()
+	internal virtual void SetRound()
 	{
 		if (timeout > timeoutInterval)
 		{
@@ -72,11 +73,13 @@ public partial class Spawn : Node
 		}
 	}
 	
-	void SpawnScene(PackedScene scene)
-		{
-			Sprite3D sprite = scene.Instantiate<Sprite3D>();
-			sprite.Position = new Vector3((GD.Randf() - 0.5f) * 20, (GD.Randf() - 0.5f) * 20, -20);
+	internal virtual void SpawnScene(PackedScene scene)
+	{
+		Sprite3D sprite = scene.Instantiate<Sprite3D>();
 
-			AddChild(sprite);
-		}
+		sprite.Position = new Vector3((GD.Randf() - 0.5f) * 20, (GD.Randf() - 0.5f) * 20, -20);
+		//sprite.GetNode<Clickable>("Clickable").speed += difficultyLevel * 2;
+
+		AddChild(sprite);
+	}
 }

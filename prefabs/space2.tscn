@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://dmnnafud1fks8"]
+
+[ext_resource type="Texture2D" uid="uid://7eqlcdqvwtxb" path="res://sprites/space2.png" id="1_q482w"]
+[ext_resource type="Script" uid="uid://dqx036wfmruax" path="res://scripts/Clickable.cs" id="2_2x6v6"]
+
+[node name="Sprite3D" type="Sprite3D"]
+transform = Transform3D(7, 0, 0, 0, 7, 0, 0, 0, 7, 0, 0, -20)
+texture = ExtResource("1_q482w")
+script = ExtResource("2_2x6v6")
+speed = 5.0

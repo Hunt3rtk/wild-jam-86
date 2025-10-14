@@ -3,6 +3,9 @@ using Godot;
 public partial class Clickable : Sprite3D
 {
 	bool falling = false;
+
+	[Export]
+	public float speed = 10;
 	public override void _Process(double delta)
 	{
 		if (falling)
@@ -17,13 +20,13 @@ public partial class Clickable : Sprite3D
 
 	void FlyBy(double delta)
 	{
-		Position += new Vector3(0, 0, (float)delta * 10);
+		Position += new Vector3(0, 0, (float)delta * speed);
 	}
 	
 	void Fall(double delta)
 	{
 		Position += new Vector3(0, (float)-delta * 10, 0);
-		Rotation += new Vector3(0, 0, (float)-delta * 50);
+		Rotation += new Vector3(0, 0, (float)-delta * 75);
 		if (Position.Y < -100)
 		{
 			QueueFree();
