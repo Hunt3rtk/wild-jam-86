@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://df6suewxaj50u"
-path.bptc="res://.godot/imported/alien.png-840e03e156f1bea543994121b4ae68b4.bptc.ctex"
+uid="uid://x1xmyyoln86n"
+path.s3tc="res://.godot/imported/alien.png-840e03e156f1bea543994121b4ae68b4.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -12,12 +12,12 @@ metadata={
 [deps]
 
 source_file="res://sprites/alien.png"
-dest_files=["res://.godot/imported/alien.png-840e03e156f1bea543994121b4ae68b4.bptc.ctex"]
+dest_files=["res://.godot/imported/alien.png-840e03e156f1bea543994121b4ae68b4.s3tc.ctex"]
 
 [params]
 
 compress/mode=2
-compress/high_quality=true
+compress/high_quality=false
 compress/lossy_quality=0.7
 compress/uastc_level=0
 compress/rdo_quality_loss=0.0
