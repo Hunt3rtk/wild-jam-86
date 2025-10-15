@@ -1,14 +1,16 @@
-[gd_scene load_steps=17 format=3 uid="uid://by7b2tidvrpi7"]
+[gd_scene load_steps=19 format=3 uid="uid://by7b2tidvrpi7"]
 
 [ext_resource type="Texture2D" uid="uid://btlgf7xhu6g1i" path="res://sprites/star.svg" id="1_a202f"]
 [ext_resource type="Script" uid="uid://cvheqoed8lf7k" path="res://scripts/Input.cs" id="1_i5arm"]
 [ext_resource type="Script" uid="uid://b0nq7dwpr50d6" path="res://scripts/HurtLogic.cs" id="2_wc5p8"]
 [ext_resource type="Script" uid="uid://dqx036wfmruax" path="res://scripts/Clickable.cs" id="3_i5arm"]
 [ext_resource type="Script" uid="uid://dgr44eu6mbgp1" path="res://scripts/Spawn.cs" id="3_r3fl7"]
-[ext_resource type="PackedScene" uid="uid://bisx1l4lq60jk" path="res://prefabs/alien.tscn" id="4_jka67"]
+[ext_resource type="PackedScene" uid="uid://bisx1l4lq60jk" path="res://prefabs/alienRed.tscn" id="4_jka67"]
 [ext_resource type="PackedScene" uid="uid://c75xdy8e2xrhq" path="res://prefabs/star.tscn" id="4_r3fl7"]
 [ext_resource type="Script" uid="uid://jxruiehfjqsu" path="res://scripts/SpawnBackground.cs" id="8_jsk3o"]
+[ext_resource type="PackedScene" uid="uid://bdo1w31d858id" path="res://prefabs/alienViolet.tscn" id="8_tcnuu"]
 [ext_resource type="PackedScene" uid="uid://r6vv4woxupq1" path="res://prefabs/space1.tscn" id="9_4arys"]
+[ext_resource type="PackedScene" uid="uid://dbgqhjbsf8qy0" path="res://prefabs/alienYellow.tscn" id="9_tuemg"]
 [ext_resource type="PackedScene" uid="uid://dshbl80np6of2" path="res://prefabs/space.tscn" id="10_wlxy5"]
 [ext_resource type="PackedScene" uid="uid://dmnnafud1fks8" path="res://prefabs/space2.tscn" id="11_3v7ru"]
 [ext_resource type="PackedScene" uid="uid://cocpdtbrny1r5" path="res://prefabs/space3.tscn" id="12_tcnuu"]
@@ -49,7 +51,7 @@ script = ExtResource("3_i5arm")
 
 [node name="Spawn" type="Node" parent="."]
 script = ExtResource("3_r3fl7")
-spawnScene = Array[PackedScene]([ExtResource("4_jka67"), ExtResource("4_r3fl7")])
+spawnScene = Array[PackedScene]([ExtResource("4_jka67"), ExtResource("4_r3fl7"), ExtResource("8_tcnuu"), ExtResource("9_tuemg")])
 
 [node name="SpawnBackground" type="Node" parent="."]
 script = ExtResource("8_jsk3o")

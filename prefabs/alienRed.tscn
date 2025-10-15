@@ -1,0 +1,17 @@
+[gd_scene load_steps=4 format=3 uid="uid://bisx1l4lq60jk"]
+
+[ext_resource type="Texture2D" uid="uid://bpochc87i6crm" path="res://sprites/alienRed.png" id="1_482ib"]
+[ext_resource type="Script" uid="uid://dqx036wfmruax" path="res://scripts/Clickable.cs" id="2_88ukn"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_88ukn"]
+
+[node name="AlienRed" type="Sprite3D"]
+texture = ExtResource("1_482ib")
+script = ExtResource("2_88ukn")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+transform = Transform3D(0.33070606, 0, 0, 0, 0.33070606, 0, 0, 0, 0.33070606, 0, 0, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+transform = Transform3D(15, 0, 0, 0, 15, 0, 0, 0, 15, 0.62196004, 9.167913, 0)
+shape = SubResource("SphereShape3D_88ukn")
