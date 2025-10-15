@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://by7b2tidvrpi7"]
+[gd_scene load_steps=19 format=3 uid="uid://bwx8i1wvapb66"]
 
 [ext_resource type="Texture2D" uid="uid://btlgf7xhu6g1i" path="res://sprites/star.svg" id="1_a202f"]
 [ext_resource type="Script" uid="uid://cvheqoed8lf7k" path="res://scripts/Input.cs" id="1_i5arm"]

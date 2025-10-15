@@ -1,0 +1,65 @@
+[gd_scene load_steps=19 format=3 uid="uid://by7b2tidvrpi7"]
+
+[ext_resource type="Script" uid="uid://rjkwtv0t0fvw" path="res://scripts/GameInput.cs" id="1_ir15t"]
+[ext_resource type="Script" uid="uid://b0nq7dwpr50d6" path="res://scripts/HurtLogic.cs" id="2_ir15t"]
+[ext_resource type="Texture2D" uid="uid://btlgf7xhu6g1i" path="res://sprites/star.svg" id="3_ca42v"]
+[ext_resource type="Script" uid="uid://dqx036wfmruax" path="res://scripts/Clickable.cs" id="4_rysoc"]
+[ext_resource type="Script" uid="uid://dgr44eu6mbgp1" path="res://scripts/Spawn.cs" id="5_ssvqc"]
+[ext_resource type="PackedScene" path="res://prefabs/alienRed.tscn" id="6_ir15t"]
+[ext_resource type="PackedScene" path="res://prefabs/alienViolet.tscn" id="7_ca42v"]
+[ext_resource type="Script" uid="uid://jxruiehfjqsu" path="res://scripts/SpawnBackground.cs" id="8_5newe"]
+[ext_resource type="PackedScene" path="res://prefabs/alienYellow.tscn" id="8_rysoc"]
+[ext_resource type="PackedScene" uid="uid://r6vv4woxupq1" path="res://prefabs/space1.tscn" id="9_37s47"]
+[ext_resource type="PackedScene" uid="uid://dshbl80np6of2" path="res://prefabs/space.tscn" id="10_bt5mj"]
+[ext_resource type="PackedScene" uid="uid://dmnnafud1fks8" path="res://prefabs/space2.tscn" id="11_e1j6l"]
+[ext_resource type="PackedScene" uid="uid://cocpdtbrny1r5" path="res://prefabs/space3.tscn" id="12_pl11u"]
+[ext_resource type="PackedScene" uid="uid://bdm4vpryj1wly" path="res://prefabs/space4.tscn" id="13_bhx41"]
+[ext_resource type="PackedScene" uid="uid://cgih2d8vlhlp2" path="res://prefabs/space5.tscn" id="14_qnb83"]
+[ext_resource type="Script" uid="uid://xbrf8qv2nv8t" path="res://scripts/CursorFire.cs" id="16_ca42v"]
+
+[sub_resource type="Environment" id="Environment_a202f"]
+background_mode = 1
+background_color = Color(0.056291588, 0.056291603, 0.056291595, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_i5arm"]
+size = Vector3(288.20325, 205.43005, 1.8676758)
+
+[node name="Node3D" type="Node3D"]
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 10)
+environment = SubResource("Environment_a202f")
+
+[node name="RayCast3D" type="RayCast3D" parent="Camera3D" node_paths=PackedStringArray("camera3D")]
+target_position = Vector3(0, 0, -1000)
+debug_shape_custom_color = Color(0, 1, 0, 1)
+script = ExtResource("1_ir15t")
+camera3D = NodePath("..")
+
+[node name="Area3D" type="Area3D" parent="Camera3D"]
+collision_layer = 255
+collision_mask = 255
+script = ExtResource("2_ir15t")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Camera3D/Area3D"]
+shape = SubResource("BoxShape3D_i5arm")
+
+[node name="Star" type="Sprite3D" parent="."]
+billboard = 1
+texture = ExtResource("3_ca42v")
+script = ExtResource("4_rysoc")
+
+[node name="Spawn" type="Node" parent="."]
+script = ExtResource("5_ssvqc")
+spawnScene = Array[PackedScene]([ExtResource("6_ir15t"), ExtResource("7_ca42v"), ExtResource("8_rysoc")])
+
+[node name="SpawnBackground" type="Node" parent="."]
+script = ExtResource("8_5newe")
+spawnScene = Array[PackedScene]([ExtResource("9_37s47"), ExtResource("10_bt5mj"), ExtResource("11_e1j6l"), ExtResource("12_pl11u"), ExtResource("13_bhx41"), ExtResource("14_qnb83")])
+
+[node name="InputNode" type="Node3D" parent="."]
+
+[node name="CursorFire" type="Node" parent="."]
+script = ExtResource("16_ca42v")
+
+[connection signal="body_entered" from="Camera3D/Area3D" to="Camera3D/Area3D" method="OnEnter"]

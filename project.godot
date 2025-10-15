@@ -11,10 +11,23 @@ config_version=5
 [application]
 
 config/name="WildJam86"
-run/main_scene="res://node_3d.tscn"
+run/main_scene="uid://cfarxe0dnpyfs"
 config/features=PackedStringArray("4.5", "C#", "Forward Plus")
 config/icon="res://icon.svg"
+
+[display]
+
+mouse_cursor/custom_image="uid://dhj0h1aotw3kd"
+mouse_cursor/custom_image_hotspot=Vector2(117, 117)
 
 [dotnet]
 
 project/assembly_name="WildJam86"
+
+[editor]
+
+movie_writer/fps=144
+
+[rendering]
+
+environment/defaults/default_clear_color=Color(0.04303915, 0.043039158, 0.04303913, 1)

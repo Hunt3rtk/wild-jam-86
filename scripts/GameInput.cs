@@ -1,7 +1,7 @@
 using Godot;
 using System;
 
-public partial class Input : RayCast3D
+public partial class GameInput : RayCast3D
 {
 	private const float RayLength = 1000.0f;
 
@@ -16,7 +16,6 @@ public partial class Input : RayCast3D
 		if (@event is InputEventMouseButton eventMouseButton && eventMouseButton.Pressed && eventMouseButton.ButtonIndex == MouseButton.Left)
 		{
 			GD.Print(" Input event: ", @event);
-			//camera3D = GetNode<Camera3D>("Camera3D");
 			from = camera3D.ProjectRayOrigin(eventMouseButton.Position);
 			to = from + camera3D.ProjectRayNormal(eventMouseButton.Position) * RayLength;
 
