@@ -12,6 +12,10 @@ public partial class Clickable : Sprite3D
 		{
 			Fall(delta);
 		}
+		else if (this.Position.Z > 10)
+		{
+			Escape();
+		}
 		else
 		{
 			FlyBy(delta);
@@ -22,7 +26,7 @@ public partial class Clickable : Sprite3D
 	{
 		Position += new Vector3(0, 0, (float)delta * speed);
 	}
-	
+
 	void Fall(double delta)
 	{
 		Position += new Vector3(0, (float)-delta * 10, 0);
@@ -32,13 +36,21 @@ public partial class Clickable : Sprite3D
 			QueueFree();
 		}
 	}
+	
+	async void Escape()
+	{
+		await ToSignal(GetTree().CreateTimer(.1), "timeout");
+		QueueFree();
+	}
 
-	public void OnHit()
+	async public void OnHit()
 	{
 		falling = true;
-		var collider = GetNode<StaticBody3D>("StaticBody3D");
+		var collider = GetNode<Area3D>("Area3D");
 		collider.QueueFree();
 		GD.Print("Clickable hit!");
+		await ToSignal(GetTree().CreateTimer(5), "timeout");
+		Escape();
 	}
 
 }

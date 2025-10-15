@@ -29,7 +29,7 @@ public partial class GameInput : RayCast3D
 			if (result.Count == 0) return;
 
 			var collider = result["collider"];
-			Clickable obj = (Clickable)collider.As<StaticBody3D>().GetParent();
+			Clickable obj = (Clickable)collider.As<Area3D>().GetParent();
 			obj.OnHit();
 		}
 	}

@@ -18,7 +18,7 @@ public partial class CursorFire : Node
 	async void OnPressedDown()
 	{
 		Input.SetCustomMouseCursor(cursorFire, Input.CursorShape.Cross, new Vector2(117, 117));
-		await ToSignal(GetTree().CreateTimer(0.1), "timeout");
+		await ToSignal(GetTree().CreateTimer(1), "timeout");
 		Default();
 	}
 
