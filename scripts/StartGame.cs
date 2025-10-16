@@ -1,5 +1,6 @@
 using Godot;
 using System;
+using System.Threading.Tasks;
 
 public partial class StartGame : Control
 {
@@ -7,13 +8,16 @@ public partial class StartGame : Control
 	{
 		GetTree().Paused = false;
 
-		await ToSignal(GetTree().CreateTimer(.3), "timeout");
-		
+		await ToSignal(GetTree().CreateTimer(.2), "timeout");
+
 		GetTree().ChangeSceneToFile("res://scenes/game.tscn");
+		return;
 	}
 	
-	void OnQuitPressed()
+	async void OnQuitPressed()
 	{
+		await ToSignal(GetTree().CreateTimer(.2), "timeout");
 		GetTree().Quit();
+		return;
 	}
 }

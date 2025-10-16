@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=3 uid="uid://by7b2tidvrpi7"]
+[gd_scene load_steps=39 format=3 uid="uid://by7b2tidvrpi7"]
 
 [ext_resource type="Script" uid="uid://rjkwtv0t0fvw" path="res://scripts/GameInput.cs" id="1_ir15t"]
 [ext_resource type="Script" uid="uid://b0nq7dwpr50d6" path="res://scripts/HurtLogic.cs" id="2_ir15t"]
@@ -22,9 +22,17 @@
 [ext_resource type="AudioStream" uid="uid://ky16yvtey8h6" path="res://audio/music/victory-awaits-in-the-gaming-universe_astronaut-265184.mp3" id="20_bt5mj"]
 [ext_resource type="Shader" uid="uid://b3tqmsk4as1ee" path="res://shaders/Flash.gdshader" id="20_e1j6l"]
 [ext_resource type="Script" uid="uid://dyaksa5c52koh" path="res://scripts/SFX.cs" id="21_5newe"]
-[ext_resource type="AudioStream" uid="uid://l67mnb7qfyl3" path="res://audio/sfx/laserShoot.wav" id="22_e1j6l"]
+[ext_resource type="AudioStream" uid="uid://b8idat3oed612" path="res://audio/sfx/lasers/laserShoot.wav" id="22_wljb1"]
+[ext_resource type="AudioStream" uid="uid://csoi0yf6uj2q8" path="res://audio/sfx/lasers/laserShoot (1).wav" id="23_v2yb1"]
+[ext_resource type="AudioStream" uid="uid://bwo5dvkdld8op" path="res://audio/sfx/lasers/laserShoot (2).wav" id="24_js0lu"]
 [ext_resource type="AudioStream" uid="uid://cxl8pvoxb6lyr" path="res://audio/sfx/explosion.wav" id="24_pl11u"]
+[ext_resource type="AudioStream" uid="uid://cgaf1upl3a8fy" path="res://audio/sfx/badHit.wav" id="25_bhx41"]
+[ext_resource type="AudioStream" uid="uid://belkm5lghiln7" path="res://audio/sfx/lasers/laserShoot (3).wav" id="25_gxtfn"]
 [ext_resource type="AudioStream" uid="uid://cp64dhmacamu0" path="res://audio/sfx/hurt2.wav" id="25_pl11u"]
+[ext_resource type="AudioStream" uid="uid://c2y8ws2832xdw" path="res://audio/sfx/lasers/laserShoot (4).wav" id="26_twgab"]
+[ext_resource type="AudioStream" uid="uid://i25ww2qawdeq" path="res://audio/sfx/lasers/laserShoot (5).wav" id="27_02fa5"]
+[ext_resource type="AudioStream" uid="uid://dgoh0awx1y6cv" path="res://audio/sfx/lasers/laserShoot (6).wav" id="28_nepv3"]
+[ext_resource type="AudioStream" uid="uid://wa5h0l3t66il" path="res://audio/sfx/button.wav" id="33_v2yb1"]
 
 [sub_resource type="Environment" id="Environment_a202f"]
 background_mode = 1
@@ -50,6 +58,16 @@ public partial class Music : AudioStreamPlayer
 	}
 }
 "
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_7025r"]
+streams_count = 7
+stream_0/stream = ExtResource("22_wljb1")
+stream_1/stream = ExtResource("23_v2yb1")
+stream_2/stream = ExtResource("24_js0lu")
+stream_3/stream = ExtResource("25_gxtfn")
+stream_4/stream = ExtResource("26_twgab")
+stream_5/stream = ExtResource("27_02fa5")
+stream_6/stream = ExtResource("28_nepv3")
 
 [node name="Node3D" type="Node3D"]
 
@@ -191,6 +209,7 @@ text = "   RETURN   "
 script = ExtResource("20_5newe")
 
 [node name="Music" type="AudioStreamPlayer" parent="."]
+process_mode = 3
 stream = ExtResource("20_bt5mj")
 autoplay = true
 parameters/looping = true
@@ -200,7 +219,7 @@ script = SubResource("CSharpScript_bt5mj")
 
 [node name="LaserSFX" type="AudioStreamPlayer" parent="SFX"]
 process_mode = 3
-stream = ExtResource("22_e1j6l")
+stream = SubResource("AudioStreamRandomizer_7025r")
 script = ExtResource("21_5newe")
 
 [node name="HitSFX" type="AudioStreamPlayer" parent="SFX"]
@@ -209,18 +228,30 @@ stream = ExtResource("24_pl11u")
 volume_db = -5.541
 script = ExtResource("21_5newe")
 
+[node name="BadHitSFX" type="AudioStreamPlayer" parent="SFX"]
+process_mode = 3
+stream = ExtResource("25_bhx41")
+volume_db = 3.836
+script = ExtResource("21_5newe")
+
 [node name="HurtSFX" type="AudioStreamPlayer" parent="SFX"]
 process_mode = 3
 stream = ExtResource("25_pl11u")
 volume_db = 5.541
 script = ExtResource("21_5newe")
 
-[node name="Sprite3D" parent="SFX" instance=ExtResource("14_qnb83")]
+[node name="ButtonSFX" type="AudioStreamPlayer" parent="SFX"]
+process_mode = 3
+stream = ExtResource("33_v2yb1")
+script = ExtResource("21_5newe")
+
+[node name="Sprite3D" parent="." instance=ExtResource("14_qnb83")]
 transform = Transform3D(7, 0, 0, 0, 7, 0, 0, 0, 7, 0, 0, 0)
 
-[node name="Sprite3D2" parent="SFX" instance=ExtResource("13_bhx41")]
+[node name="Sprite3D2" parent="." instance=ExtResource("13_bhx41")]
 transform = Transform3D(7, 0, 0, 0, 7, 0, 0, 0, 7, 0, 0, -10)
 
 [connection signal="area_entered" from="HurtBox" to="HurtBox" method="OnEnter"]
 [connection signal="pressed" from="CanvasLayer/GameOver/Button" to="CanvasLayer/GameOver/Button" method="OnPressed"]
+[connection signal="pressed" from="CanvasLayer/GameOver/Button" to="SFX/ButtonSFX" method="PlaySFX"]
 [connection signal="finished" from="SFX/LaserSFX" to="CursorFire" method="Default"]

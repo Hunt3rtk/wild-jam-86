@@ -57,7 +57,13 @@ public partial class Clickable : Sprite3D
 	async public void OnHit(Type type)
 	{
 
-		if (this.type != type && this.type != Type.Normal) return;
+		if (this.type != type && this.type != Type.Normal)
+		{
+			SFX x = GetNode<SFX>("../../SFX/BadHitSFX");
+			if (x != null) x.PlaySFX();
+
+			return;
+		}
 
 		falling = true;
 
