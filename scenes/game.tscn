@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://by7b2tidvrpi7"]
+[gd_scene load_steps=22 format=3 uid="uid://by7b2tidvrpi7"]
 
 [ext_resource type="Script" uid="uid://rjkwtv0t0fvw" path="res://scripts/GameInput.cs" id="1_ir15t"]
 [ext_resource type="Script" uid="uid://b0nq7dwpr50d6" path="res://scripts/HurtLogic.cs" id="2_ir15t"]
@@ -17,6 +17,8 @@
 [ext_resource type="PackedScene" uid="uid://cgih2d8vlhlp2" path="res://prefabs/space5.tscn" id="14_qnb83"]
 [ext_resource type="Script" uid="uid://xbrf8qv2nv8t" path="res://scripts/CursorFire.cs" id="16_ca42v"]
 [ext_resource type="Texture2D" uid="uid://ddeqacsm2jcap" path="res://sprites/rangerHeart.png" id="17_rysoc"]
+[ext_resource type="Theme" uid="uid://ff5sqq0numjb" path="res://scenes/mainMenu.tres" id="19_1kice"]
+[ext_resource type="Script" uid="uid://dyflkcluxbmr6" path="res://scripts/Return.cs" id="20_5newe"]
 
 [sub_resource type="Environment" id="Environment_a202f"]
 background_mode = 1
@@ -55,16 +57,29 @@ spawnScene = Array[PackedScene]([ExtResource("9_37s47"), ExtResource("10_bt5mj")
 [node name="CursorFire" type="Node" parent="."]
 script = ExtResource("16_ca42v")
 
-[node name="HurtBox" type="Area3D" parent="."]
+[node name="HurtBox" type="Area3D" parent="." node_paths=PackedStringArray("gameOver", "fade")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 14.701358)
 collision_layer = 2
 script = ExtResource("2_ir15t")
+gameOver = NodePath("../CanvasLayer/GameOver")
+fade = NodePath("../CanvasLayer/Fade")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="HurtBox"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.6748552)
 shape = SubResource("BoxShape3D_i5arm")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Fade" type="ColorRect" parent="CanvasLayer"]
+visible = false
+clip_children = 2
+z_index = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.9019608)
 
 [node name="HeartContainer" type="HBoxContainer" parent="CanvasLayer"]
 anchors_preset = 12
@@ -111,4 +126,34 @@ texture = ExtResource("17_rysoc")
 expand_mode = 3
 stretch_mode = 4
 
+[node name="GameOver" type="VBoxContainer" parent="CanvasLayer"]
+process_mode = 3
+visible = false
+self_modulate = Color(0, 0, 0, 0.87058824)
+z_index = 1
+custom_minimum_size = Vector2(200, 200)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="Score" type="Label" parent="CanvasLayer/GameOver"]
+z_index = 2
+layout_mode = 2
+theme = ExtResource("19_1kice")
+text = "ROUND: "
+horizontal_alignment = 1
+uppercase = true
+
+[node name="Button" type="Button" parent="CanvasLayer/GameOver"]
+z_index = 2
+layout_mode = 2
+size_flags_horizontal = 4
+theme = ExtResource("19_1kice")
+text = "   RETURN   "
+script = ExtResource("20_5newe")
+
 [connection signal="area_entered" from="HurtBox" to="HurtBox" method="OnEnter"]
+[connection signal="pressed" from="CanvasLayer/GameOver/Button" to="CanvasLayer/GameOver/Button" method="OnPressed"]

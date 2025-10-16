@@ -9,6 +9,7 @@
 [ext_resource type="Script" uid="uid://xbrf8qv2nv8t" path="res://scripts/CursorFire.cs" id="7_l4mxc"]
 
 [node name="Main Menu" type="Control"]
+process_mode = 3
 layout_mode = 3
 anchors_preset = 8
 anchor_left = 0.5

@@ -3,8 +3,12 @@ using System;
 
 public partial class StartGame : Control
 {
-	void OnStartPressed()
+	async void OnStartPressed()
 	{
+		GetTree().Paused = false;
+
+		await ToSignal(GetTree().CreateTimer(.3), "timeout");
+		
 		GetTree().ChangeSceneToFile("res://scenes/game.tscn");
 	}
 	

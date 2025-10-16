@@ -8,6 +8,12 @@ public partial class HurtLogic : Node
 
 	int health;
 
+	[Export]
+	VBoxContainer gameOver;
+
+	[Export]
+	ColorRect fade;
+
 	public override void _Ready()
 	{
 		var heartContainer = GetNode<HBoxContainer>("../CanvasLayer/HeartContainer");
@@ -40,7 +46,15 @@ public partial class HurtLogic : Node
 		}
 		if (health <= 0)
 		{
-			GetTree().ChangeSceneToFile("res://scenes/mainMenu.tscn");
+			int round = GetNode<Spawn>("../Spawn").round;
+			Label score = gameOver.GetNode<Label>("Score");
+
+			GetTree().Paused = true;
+
+			score.Text = "You survived " + round + " rounds!";
+			
+			gameOver.Visible = true;
+			fade.Visible = true;
 		}
 	}
 }
