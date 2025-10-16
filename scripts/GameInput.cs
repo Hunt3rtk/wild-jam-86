@@ -11,26 +11,58 @@ public partial class GameInput : RayCast3D
 	[Export]
 	Camera3D camera3D;
 
-	public override void _Input(InputEvent @event)
+	public override void _Process(double delta)
 	{
-		if (@event is InputEventMouseButton eventMouseButton && eventMouseButton.Pressed && eventMouseButton.ButtonIndex == MouseButton.Left)
+		if (Input.IsActionJustPressed("mouse_left") && !Input.IsActionPressed("mouse_right"))
 		{
-			GD.Print(" Input event: ", @event);
-			from = camera3D.ProjectRayOrigin(eventMouseButton.Position);
-			to = from + camera3D.ProjectRayNormal(eventMouseButton.Position) * RayLength;
-
-			var spaceState = GetWorld3D().DirectSpaceState;
-			var query = PhysicsRayQueryParameters3D.Create(from, to);
-			query.CollideWithAreas = true;
-
-			var result = spaceState.IntersectRay(query);
-			GD.Print("Hit at point: ", result);
-
-			if (result.Count == 0) return;
-
-			var collider = result["collider"];
-			Clickable obj = (Clickable)collider.As<Area3D>().GetParent();
-			obj.OnHit();
+			LeftClick();
 		}
+		else if (Input.IsActionJustPressed("mouse_right") && !Input.IsActionPressed("mouse_left"))
+		{
+			RightClick();
+		}
+		else if (Input.IsActionJustPressed("mouse_left") && Input.IsActionPressed("mouse_right") || Input.IsActionJustPressed("mouse_right") && Input.IsActionPressed("mouse_left"))
+		{
+			BothClick();
+		}
+	}
+
+	Clickable Click()
+	{
+		from = camera3D.ProjectRayOrigin(GetViewport().GetMousePosition());
+		to = from + camera3D.ProjectRayNormal(GetViewport().GetMousePosition()) * RayLength;
+
+		var spaceState = GetWorld3D().DirectSpaceState;
+		var query = PhysicsRayQueryParameters3D.Create(from, to);
+		query.CollideWithAreas = true;
+
+		var result = spaceState.IntersectRay(query);
+
+		if (result.Count == 0) 	return null;
+
+		var collider = result["collider"];
+		Clickable obj = (Clickable)collider.As<Area3D>().GetParent();
+		return obj;
+	}
+
+	void LeftClick()
+	{
+		Clickable obj = Click();
+		if (obj != null)
+			obj.OnHit(Clickable.Type.Red);
+	}
+
+	void RightClick()
+	{
+		Clickable obj = Click();
+		if (obj != null)
+			obj.OnHit(Clickable.Type.Blue);
+	}
+	
+	void BothClick()
+	{
+		Clickable obj = Click();
+		if (obj != null)
+			obj.OnHit(Clickable.Type.Purple);
 	}
 }

@@ -1,14 +1,16 @@
-[gd_scene load_steps=8 format=3 uid="uid://cfarxe0dnpyfs"]
+[gd_scene load_steps=10 format=3 uid="uid://cfarxe0dnpyfs"]
 
 [ext_resource type="Theme" uid="uid://ff5sqq0numjb" path="res://scenes/mainMenu.tres" id="1_ucygd"]
 [ext_resource type="Script" uid="uid://3yt7b6ql8me" path="res://scripts/StartGame.cs" id="2_mipys"]
 [ext_resource type="FontFile" uid="uid://bpdnv8lnisggc" path="res://fonts/PixeloidSans-Bold.ttf" id="3_8a8k8"]
 [ext_resource type="Texture2D" uid="uid://7eqlcdqvwtxb" path="res://sprites/space2.png" id="4_7la6k"]
-[ext_resource type="Texture2D" uid="uid://ckth5mlgjchnl" path="res://sprites/space1.png" id="5_2nypq"]
-[ext_resource type="Texture2D" uid="uid://bur85bfsl2ryp" path="res://sprites/space5.png" id="6_bky6r"]
 [ext_resource type="Script" uid="uid://xbrf8qv2nv8t" path="res://scripts/CursorFire.cs" id="7_l4mxc"]
+[ext_resource type="Texture2D" uid="uid://c4qf1px2xq45v" path="res://sprites/space3.png" id="7_tov5d"]
+[ext_resource type="AudioStream" uid="uid://l67mnb7qfyl3" path="res://audio/sfx/laserShoot.wav" id="8_6b2wv"]
+[ext_resource type="Script" uid="uid://dyaksa5c52koh" path="res://scripts/SFX.cs" id="9_6b2wv"]
+[ext_resource type="AudioStream" uid="uid://cxl8pvoxb6lyr" path="res://audio/sfx/explosion.wav" id="10_tov5d"]
 
-[node name="Main Menu" type="Control"]
+[node name="MainMenu" type="Control"]
 process_mode = 3
 layout_mode = 3
 anchors_preset = 8
@@ -55,17 +57,34 @@ z_index = -1
 scale = Vector2(1.2, 1.2)
 texture = ExtResource("4_7la6k")
 
-[node name="Space2" type="Sprite2D" parent="."]
-z_index = -10
-texture = ExtResource("5_2nypq")
+[node name="Space1" type="Sprite2D" parent="."]
+self_modulate = Color(1, 1, 1, 0.5686275)
+z_index = -1
+position = Vector2(-24.749878, -16.50003)
+scale = Vector2(2.2265625, 2.2265625)
+texture = ExtResource("4_7la6k")
 
-[node name="Space3" type="Sprite2D" parent="."]
-z_index = -50
-scale = Vector2(0.75, 0.75)
-texture = ExtResource("6_bky6r")
+[node name="Space2" type="Sprite2D" parent="."]
+z_index = -1
+position = Vector2(-0.00015258789, -0.00012207031)
+scale = Vector2(3.3031247, 3.3031247)
+texture = ExtResource("7_tov5d")
 
 [node name="CursorFire" type="Node" parent="."]
 script = ExtResource("7_l4mxc")
 
+[node name="SFX" type="Node" parent="."]
+
+[node name="LaserSFX" type="AudioStreamPlayer" parent="SFX"]
+process_mode = 3
+stream = ExtResource("8_6b2wv")
+script = ExtResource("9_6b2wv")
+
+[node name="HitSFX" type="AudioStreamPlayer" parent="SFX"]
+process_mode = 3
+stream = ExtResource("10_tov5d")
+script = ExtResource("9_6b2wv")
+
 [connection signal="pressed" from="VBoxContainer/Start" to="." method="OnStartPressed"]
 [connection signal="pressed" from="VBoxContainer/Quit" to="." method="OnQuitPressed"]
+[connection signal="finished" from="SFX/LaserSFX" to="CursorFire" method="Default"]

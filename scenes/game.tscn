@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://by7b2tidvrpi7"]
+[gd_scene load_steps=30 format=3 uid="uid://by7b2tidvrpi7"]
 
 [ext_resource type="Script" uid="uid://rjkwtv0t0fvw" path="res://scripts/GameInput.cs" id="1_ir15t"]
 [ext_resource type="Script" uid="uid://b0nq7dwpr50d6" path="res://scripts/HurtLogic.cs" id="2_ir15t"]
@@ -19,6 +19,12 @@
 [ext_resource type="Texture2D" uid="uid://ddeqacsm2jcap" path="res://sprites/rangerHeart.png" id="17_rysoc"]
 [ext_resource type="Theme" uid="uid://ff5sqq0numjb" path="res://scenes/mainMenu.tres" id="19_1kice"]
 [ext_resource type="Script" uid="uid://dyflkcluxbmr6" path="res://scripts/Return.cs" id="20_5newe"]
+[ext_resource type="AudioStream" uid="uid://ky16yvtey8h6" path="res://audio/music/victory-awaits-in-the-gaming-universe_astronaut-265184.mp3" id="20_bt5mj"]
+[ext_resource type="Shader" uid="uid://b3tqmsk4as1ee" path="res://shaders/Flash.gdshader" id="20_e1j6l"]
+[ext_resource type="Script" uid="uid://dyaksa5c52koh" path="res://scripts/SFX.cs" id="21_5newe"]
+[ext_resource type="AudioStream" uid="uid://l67mnb7qfyl3" path="res://audio/sfx/laserShoot.wav" id="22_e1j6l"]
+[ext_resource type="AudioStream" uid="uid://cxl8pvoxb6lyr" path="res://audio/sfx/explosion.wav" id="24_pl11u"]
+[ext_resource type="AudioStream" uid="uid://cp64dhmacamu0" path="res://audio/sfx/hurt2.wav" id="25_pl11u"]
 
 [sub_resource type="Environment" id="Environment_a202f"]
 background_mode = 1
@@ -26,6 +32,24 @@ background_color = Color(0.056291588, 0.056291603, 0.056291595, 1)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_i5arm"]
 size = Vector3(645.7255, 738.5436, 17.18577)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_pl11u"]
+resource_local_to_scene = true
+render_priority = 0
+shader = ExtResource("20_e1j6l")
+
+[sub_resource type="CSharpScript" id="CSharpScript_bt5mj"]
+script/source = "using Godot;
+using System;
+
+public partial class Music : AudioStreamPlayer
+{
+	public override void _Ready()
+	{
+		Play();
+	}
+}
+"
 
 [node name="Node3D" type="Node3D"]
 
@@ -80,6 +104,17 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0, 0, 0.9019608)
+
+[node name="Flash" type="ColorRect" parent="CanvasLayer"]
+visible = false
+material = SubResource("ShaderMaterial_pl11u")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(1, 1, 1, 0)
 
 [node name="HeartContainer" type="HBoxContainer" parent="CanvasLayer"]
 anchors_preset = 12
@@ -155,5 +190,37 @@ theme = ExtResource("19_1kice")
 text = "   RETURN   "
 script = ExtResource("20_5newe")
 
+[node name="Music" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("20_bt5mj")
+autoplay = true
+parameters/looping = true
+script = SubResource("CSharpScript_bt5mj")
+
+[node name="SFX" type="Node" parent="."]
+
+[node name="LaserSFX" type="AudioStreamPlayer" parent="SFX"]
+process_mode = 3
+stream = ExtResource("22_e1j6l")
+script = ExtResource("21_5newe")
+
+[node name="HitSFX" type="AudioStreamPlayer" parent="SFX"]
+process_mode = 3
+stream = ExtResource("24_pl11u")
+volume_db = -5.541
+script = ExtResource("21_5newe")
+
+[node name="HurtSFX" type="AudioStreamPlayer" parent="SFX"]
+process_mode = 3
+stream = ExtResource("25_pl11u")
+volume_db = 5.541
+script = ExtResource("21_5newe")
+
+[node name="Sprite3D" parent="SFX" instance=ExtResource("14_qnb83")]
+transform = Transform3D(7, 0, 0, 0, 7, 0, 0, 0, 7, 0, 0, 0)
+
+[node name="Sprite3D2" parent="SFX" instance=ExtResource("13_bhx41")]
+transform = Transform3D(7, 0, 0, 0, 7, 0, 0, 0, 7, 0, 0, -10)
+
 [connection signal="area_entered" from="HurtBox" to="HurtBox" method="OnEnter"]
 [connection signal="pressed" from="CanvasLayer/GameOver/Button" to="CanvasLayer/GameOver/Button" method="OnPressed"]
+[connection signal="finished" from="SFX/LaserSFX" to="CursorFire" method="Default"]

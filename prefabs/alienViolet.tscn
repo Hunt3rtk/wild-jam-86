@@ -8,6 +8,7 @@
 [node name="AlienPurple" type="Sprite3D"]
 texture = ExtResource("1_ktkq0")
 script = ExtResource("2_tqs8g")
+type = 2
 
 [node name="Area3D" type="Area3D" parent="."]
 

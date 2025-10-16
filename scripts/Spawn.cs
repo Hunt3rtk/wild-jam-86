@@ -18,7 +18,7 @@ public partial class Spawn : Node
 	internal double timeoutInterval = 2;
 
 	[Export]
-	public int round = 0;
+	public int round = -1;
 
 	double difficulty = 0;
 

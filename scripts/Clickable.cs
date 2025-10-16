@@ -5,6 +5,17 @@ public partial class Clickable : Sprite3D
 	bool falling = false;
 
 	[Export]
+	public Type type = Type.Normal;
+
+	public enum Type
+	{
+		Normal,
+		Red,
+		Blue,
+		Purple
+	}
+
+	[Export]
 	public float speed = 10;
 	public override void _Process(double delta)
 	{
@@ -43,13 +54,21 @@ public partial class Clickable : Sprite3D
 		QueueFree();
 	}
 
-	async public void OnHit()
+	async public void OnHit(Type type)
 	{
+
+		if (this.type != type && this.type != Type.Normal) return;
+
 		falling = true;
+
+		SFX sfx = GetNode<SFX>("../../SFX/HitSFX");
+		if (sfx != null) sfx.PlaySFX();
+
 		var collider = GetNode<Area3D>("Area3D");
 		collider.QueueFree();
-		GD.Print("Clickable hit!");
+
 		await ToSignal(GetTree().CreateTimer(5), "timeout");
+
 		Escape();
 	}
 

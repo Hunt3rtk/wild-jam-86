@@ -28,6 +28,13 @@ public partial class HurtLogic : Node
 	void OnEnter(Node other)
 	{
 		health--;
+
+		SFX sfx = GetNode<SFX>("../SFX/HurtSFX");
+		if (sfx != null)
+		{
+			sfx.PlaySFX();
+		}
+
 		TakeDamage();
 	}
 
@@ -52,7 +59,7 @@ public partial class HurtLogic : Node
 			GetTree().Paused = true;
 
 			score.Text = "You survived " + round + " rounds!";
-			
+
 			gameOver.Visible = true;
 			fade.Visible = true;
 		}
