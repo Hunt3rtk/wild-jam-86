@@ -1,4 +1,4 @@
-[gd_scene load_steps=39 format=3 uid="uid://by7b2tidvrpi7"]
+[gd_scene load_steps=43 format=3 uid="uid://by7b2tidvrpi7"]
 
 [ext_resource type="Script" uid="uid://rjkwtv0t0fvw" path="res://scripts/GameInput.cs" id="1_ir15t"]
 [ext_resource type="Script" uid="uid://b0nq7dwpr50d6" path="res://scripts/HurtLogic.cs" id="2_ir15t"]
@@ -21,10 +21,14 @@
 [ext_resource type="Script" uid="uid://dyflkcluxbmr6" path="res://scripts/Return.cs" id="20_5newe"]
 [ext_resource type="AudioStream" uid="uid://ky16yvtey8h6" path="res://audio/music/victory-awaits-in-the-gaming-universe_astronaut-265184.mp3" id="20_bt5mj"]
 [ext_resource type="Shader" uid="uid://b3tqmsk4as1ee" path="res://shaders/Flash.gdshader" id="20_e1j6l"]
+[ext_resource type="Texture2D" uid="uid://x1xmyyoln86n" path="res://sprites/alien.png" id="21_02fa5"]
 [ext_resource type="Script" uid="uid://dyaksa5c52koh" path="res://scripts/SFX.cs" id="21_5newe"]
+[ext_resource type="Script" uid="uid://bigj1g6tg3kyd" path="res://scripts/RotateTexture.cs" id="22_nepv3"]
 [ext_resource type="AudioStream" uid="uid://b8idat3oed612" path="res://audio/sfx/lasers/laserShoot.wav" id="22_wljb1"]
+[ext_resource type="Texture2D" uid="uid://bpochc87i6crm" path="res://sprites/alienRed.png" id="23_7025r"]
 [ext_resource type="AudioStream" uid="uid://csoi0yf6uj2q8" path="res://audio/sfx/lasers/laserShoot (1).wav" id="23_v2yb1"]
 [ext_resource type="AudioStream" uid="uid://bwo5dvkdld8op" path="res://audio/sfx/lasers/laserShoot (2).wav" id="24_js0lu"]
+[ext_resource type="Texture2D" uid="uid://c40smmas1ywvw" path="res://sprites/alienViolet.png" id="24_m4url"]
 [ext_resource type="AudioStream" uid="uid://cxl8pvoxb6lyr" path="res://audio/sfx/explosion.wav" id="24_pl11u"]
 [ext_resource type="AudioStream" uid="uid://cgaf1upl3a8fy" path="res://audio/sfx/badHit.wav" id="25_bhx41"]
 [ext_resource type="AudioStream" uid="uid://belkm5lghiln7" path="res://audio/sfx/lasers/laserShoot (3).wav" id="25_gxtfn"]
@@ -89,6 +93,7 @@ script = ExtResource("4_rysoc")
 [node name="Spawn" type="Node" parent="."]
 script = ExtResource("5_ssvqc")
 spawnScene = Array[PackedScene]([ExtResource("6_ir15t"), ExtResource("7_ca42v"), ExtResource("8_rysoc")])
+maxSpawn = 3
 
 [node name="SpawnBackground" type="Node" parent="."]
 script = ExtResource("8_5newe")
@@ -135,13 +140,16 @@ mouse_filter = 2
 color = Color(1, 1, 1, 0)
 
 [node name="HeartContainer" type="HBoxContainer" parent="CanvasLayer"]
-anchors_preset = 12
+anchors_preset = 3
+anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_left = -602.0
 offset_top = -97.0
-grow_horizontal = 2
+grow_horizontal = 0
 grow_vertical = 0
+alignment = 2
 
 [node name="Heart" type="TextureRect" parent="CanvasLayer/HeartContainer"]
 layout_mode = 2
@@ -207,6 +215,23 @@ size_flags_horizontal = 4
 theme = ExtResource("19_1kice")
 text = "   RETURN   "
 script = ExtResource("20_5newe")
+
+[node name="PlayerContainer" type="BoxContainer" parent="CanvasLayer"]
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -40.0
+offset_right = 40.0
+grow_vertical = 0
+
+[node name="PlayerSprite" type="TextureRect" parent="CanvasLayer/PlayerContainer"]
+custom_minimum_size = Vector2(300, 300)
+layout_mode = 2
+texture = ExtResource("21_02fa5")
+expand_mode = 3
+stretch_mode = 4
+script = ExtResource("22_nepv3")
+textures = Array[Texture2D]([ExtResource("21_02fa5"), ExtResource("23_7025r"), ExtResource("24_m4url")])
 
 [node name="Music" type="AudioStreamPlayer" parent="."]
 process_mode = 3

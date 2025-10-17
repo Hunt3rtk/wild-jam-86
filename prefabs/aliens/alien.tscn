@@ -8,6 +8,7 @@
 [node name="Alien" type="Sprite3D"]
 texture = ExtResource("1_fahsj")
 script = ExtResource("2_88ukn")
+speed = 7.0
 
 [node name="StaticBody3D" type="StaticBody3D" parent="."]
 transform = Transform3D(0.33070606, 0, 0, 0, 0.33070606, 0, 0, 0, 0.33070606, 0, 0, 0)

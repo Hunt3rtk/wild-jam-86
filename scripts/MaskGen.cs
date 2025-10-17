@@ -20,15 +20,15 @@ public partial class MaskGen : Node
 	void SpawnMasks()
 	{
 		int spawnCount = GD.RandRange(minAmount, maxAmount);
-		int offset = 0;
+		float offset = 0;
 		for (int i = 0; i < spawnCount; i++)
 		{
-			offset++;
+			offset += 1.5f;
 			SpawnMask(offset);
 		}
 	}
 
-	void SpawnMask(int offset)
+	void SpawnMask(float offset)
 	{
 		int index = (int)GD.Randi() % maskScenes.Length;
 		var maskInstance = maskScenes[index].Instantiate<Mask>();

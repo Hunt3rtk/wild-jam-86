@@ -10,7 +10,7 @@
 [node name="AlienRed" type="Sprite3D"]
 texture = ExtResource("1_482ib")
 script = ExtResource("2_88ukn")
-type = 1
+speed = 6.0
 
 [node name="Area3D" type="Area3D" parent="."]
 

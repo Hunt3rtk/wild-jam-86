@@ -42,6 +42,10 @@ public partial class GameInput : RayCast3D
 
 		var collider = result["collider"];
 		Clickable obj = (Clickable)collider.As<Area3D>().GetParent();
+
+		var playerTexture = GetNode<RotateTexture>("/root/Node3D/CanvasLayer/PlayerContainer/PlayerSprite");
+		playerTexture.SelectTexture();
+
 		return obj;
 	}
 

@@ -23,6 +23,7 @@ public partial class Mask : Clickable
 
 	public override void Fall(double delta)
 	{
+		//GetParent<Node3D>().RemoveChild(this);
 		Position += new Vector3(x * 25 * (float)delta, y * 25 * (float)delta, 0);
 		Rotation += new Vector3(0, 0, (float)-delta * 50);
 		if (Position.Y < -50)
