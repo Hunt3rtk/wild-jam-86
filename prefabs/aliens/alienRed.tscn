@@ -1,7 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://dvvxop1auteea"]
+[gd_scene load_steps=6 format=3 uid="uid://dvvxop1auteea"]
 
 [ext_resource type="Texture2D" uid="uid://bpochc87i6crm" path="res://sprites/alienRed.png" id="1_482ib"]
 [ext_resource type="Script" uid="uid://dqx036wfmruax" path="res://scripts/Clickable.cs" id="2_88ukn"]
+[ext_resource type="Script" uid="uid://f5prbc08h12h" path="res://scripts/MaskGen.cs" id="3_px25y"]
+[ext_resource type="PackedScene" uid="uid://btppswpkl2hyh" path="res://prefabs/masks/maskBlue.tscn" id="4_3ueil"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_88ukn"]
 
@@ -15,5 +17,12 @@ type = 1
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
 transform = Transform3D(4.960591, 0, 0, 0, 4.960591, 0, 0, 0, 4.960591, 0.20568596, 3.0318844, 0)
 shape = SubResource("SphereShape3D_88ukn")
+
+[node name="MaskGen" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.75, 0)
+script = ExtResource("3_px25y")
+maskScenes = Array[PackedScene]([ExtResource("4_3ueil")])
+minAmount = 0
+maxAmount = 2
 
 [connection signal="area_entered" from="Area3D" to="Area3D" method="OnEnter"]

@@ -33,16 +33,16 @@ public partial class Clickable : Sprite3D
 		}
 	}
 
-	void FlyBy(double delta)
+	public virtual void FlyBy(double delta)
 	{
 		Position += new Vector3(0, 0, (float)delta * speed);
 	}
 
-	void Fall(double delta)
+	public virtual void Fall(double delta)
 	{
 		Position += new Vector3(0, (float)-delta * 10, 0);
 		Rotation += new Vector3(0, 0, (float)-delta * 75);
-		if (Position.Y < -100)
+		if (Position.Y < -50)
 		{
 			QueueFree();
 		}
@@ -59,7 +59,7 @@ public partial class Clickable : Sprite3D
 
 		if (this.type != type && this.type != Type.Normal)
 		{
-			SFX x = GetNode<SFX>("../../SFX/BadHitSFX");
+			SFX x = GetNode<SFX>("/root/Node3D/SFX/BadHitSFX");
 			if (x != null) x.PlaySFX();
 
 			return;
@@ -67,7 +67,7 @@ public partial class Clickable : Sprite3D
 
 		falling = true;
 
-		SFX sfx = GetNode<SFX>("../../SFX/HitSFX");
+		SFX sfx = GetNode<SFX>("/root/Node3D/SFX/HitSFX");
 		if (sfx != null) sfx.PlaySFX();
 
 		var collider = GetNode<Area3D>("Area3D");

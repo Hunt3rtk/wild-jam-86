@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=3 uid="uid://btppswpkl2hyh"]
+
+[ext_resource type="Texture2D" uid="uid://dp7hlk3gj7b81" path="res://icon.svg" id="1_wjnth"]
+[ext_resource type="Script" uid="uid://w82ov5vvxtcx" path="res://scripts/Mask.cs" id="2_14uw2"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_88ukn"]
+
+[node name="Sprite3D" type="Sprite3D"]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)
+texture = ExtResource("1_wjnth")
+script = ExtResource("2_14uw2")
+type = 2
+
+[node name="Area3D" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+transform = Transform3D(2.5, 0, 0, 0, 2.5, 0, 0, 0, 2.5, 0.080947995, 0, 0)
+shape = SubResource("SphereShape3D_88ukn")
+
+[connection signal="area_entered" from="Area3D" to="Area3D" method="OnEnter"]

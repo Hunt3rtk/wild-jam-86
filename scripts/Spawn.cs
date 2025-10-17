@@ -46,7 +46,6 @@ public partial class Spawn : Node
 				difficultyLevel++;
 				timeoutInterval -= 0.1;
 			}
-
 		}
 	}
 	
